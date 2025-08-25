@@ -1,0 +1,9 @@
+torch
+faiss-cpu
+numpy
+pandas
+scikit-learn
+langchain
+streamlit
+langchain-community
+langchain-ollama
