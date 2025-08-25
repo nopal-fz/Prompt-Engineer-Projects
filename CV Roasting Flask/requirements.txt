@@ -1,0 +1,4 @@
+Flask
+langchain-ollama
+langchain-core
+python-docx
