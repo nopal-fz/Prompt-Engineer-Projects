@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay Generator - AI-Powered Writing Assistant</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+            height: 95vh;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            display: flex;
+        }
+
+        .hero .container {
+        max-width: 800px;
+        }
+
+        /* Badge */
+        .badge {
+        font-size: 14px;
+        background: rgba(255,255,255,0.15);
+        padding: 6px 14px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 15px;
+        }
+
+        /* Heading */
+        .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        }
+
+        .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+        color: #f0f0f0;
+        }
+
+        /* CTA Button */
+        .cta-button {
+        background-color: #ffffff;
+        color: #6c63ff;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+        display: inline-block;
+        }
+
+        .cta-button:hover {
+        background-color: #f2f2f2;
+        transform: translateY(-2px);
+        }
+
+        /* Scroll Indicator */
+        .scroll-down span {
+        display: block;
+        width: 25px;
+        height: 40px;
+        border: 2px solid #fff;
+        border-radius: 50px;
+        margin: 40px auto 0;
+        position: relative;
+        }
+
+        .scroll-down span::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: #fff;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        animation: scroll 1.5s infinite;
+        }
+
+        @keyframes scroll {
+        0% { top: 10px; opacity: 1; }
+        100% { top: 25px; opacity: 0; }
+        }
+
+        /* Main Content */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+
+        .generator-section {
+            padding: 4rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            margin-top: 1rem;
+        }
+
+        /* Results */
+        .result-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            display: none;
+        }
+
+        .result-section h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .essay-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            line-height: 1.8;
+            color: #444;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* About Section */
+        .about-section, .features-section {
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .about-section {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text {
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .about-text > p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack, .advantages {
+            margin-top: 2.5rem;
+        }
+
+        .tech-stack h3, .advantages h3 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9ff;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .tech-item i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-right: 1rem;
+        }
+
+        .tech-item h4 {
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .tech-item p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f0f4ff;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .advantage-item:hover {
+            transform: translateX(5px);
+        }
+
+        .advantage-item i {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ffd700;
+        }
+
+        /* About Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 600px;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+        }
+
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .alert-error {
+            background: #fee;
+            color: #c33;
+            border-left: 4px solid #c33;
+        }
+
+        .alert-success {
+            background: #efe;
+            color: #383;
+            border-left: 4px solid #383;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-pen-fancy"></i> EssayGen AI
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#features">Fitur</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+        <small class="badge">⚡ AI-Powered Platform</small>
+        <h1><i class="fas fa-robot"></i> Essay Generator AI</h1>
+        <p>Platform cerdas untuk menghasilkan esai berkualitas tinggi dengan bantuan kecerdasan buatan. Cocok untuk mahasiswa dan pelajar.</p>
+        <a href="#features" class="cta-button">🎯 Mulai Sekarang</a>
+        <div class="scroll-down"><span></span></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-info-circle"></i> Tentang Essay Generator AI</h2>
+                <p>Platform inovatif untuk menghasilkan esai berkualitas tinggi</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Essay Generator AI adalah platform inovatif yang dirancang khusus untuk membantu mahasiswa dan pelajar dalam membuat esai berkualitas tinggi. Aplikasi ini menggunakan teknologi kecerdasan buatan terdepan untuk menghasilkan konten yang relevan, terstruktur, dan menarik.</p>
+                    
+                    <div class="tech-stack">
+                        <h3><i class="fas fa-cogs"></i> Teknologi yang Digunakan:</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <i class="fas fa-link"></i>
+                                <div>
+                                    <h4>LangChain</h4>
+                                    <p>Framework untuk aplikasi LLM</p>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-brain"></i>
+                                <div>
+                                    <h4>Ollama LLM</h4>
+                                    <p>Model bahasa lokal yang powerful</p>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-python"></i>
+                                <div>
+                                    <h4>Flask</h4>
+                                    <p>Web framework Python yang ringan</p>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-file-pdf"></i>
+                                <div>
+                                    <h4>FPDF</h4>
+                                    <p>Library untuk generasi PDF</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="advantages">
+                        <h3><i class="fas fa-star"></i> Keunggulan:</h3>
+                        <div class="advantages-grid">
+                            <div class="advantage-item">
+                                <i class="fas fa-bullseye"></i>
+                                <span>Hasil esai yang relevan dan berkualitas</span>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-palette"></i>
+                                <span>Berbagai pilihan gaya tulisan</span>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-ruler-horizontal"></i>
+                                <span>Kontrol panjang esai sesuai kebutuhan</span>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-download"></i>
+                                <span>Export ke PDF dengan mudah</span>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-flag"></i>
+                                <span>Mendukung bahasa Indonesia</span>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Responsive di semua device</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-rocket"></i> Fitur-Fitur Unggulan</h2>
+                <p>Dilengkapi dengan berbagai fitur canggih untuk kebutuhan akademik Anda</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Writing</h3>
+                    <p>Menggunakan model LLM yang canggih untuk menghasilkan konten berkualitas tinggi dengan struktur yang baik dan bahasa yang natural.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Multi-Style Writing</h3>
+                    <p>Pilihan gaya tulisan yang beragam: Akademik untuk karya ilmiah, Santai untuk blog, Persuasif untuk argumen, dan Naratif untuk cerita.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-ruler-horizontal"></i>
+                    </div>
+                    <h3>Flexible Length</h3>
+                    <p>Kontrol panjang esai sesuai kebutuhan: Pendek untuk summary, Menengah untuk assignment, atau Panjang untuk paper.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>PDF Export</h3>
+                    <p>Download hasil esai dalam format PDF yang rapi dan profesional, siap untuk dikumpulkan atau dipresentasikan.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Bahasa Indonesia</h3>
+                    <p>Dioptimalkan khusus untuk bahasa Indonesia dengan pemahaman konteks budaya dan tata bahasa yang tepat.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>Tampilan yang optimal dan user-friendly di desktop, tablet, dan mobile untuk kemudahan akses dimana saja.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="main-content">
+            <div class="alert alert-error" id="errorAlert"></div>
+            <div class="alert alert-success" id="successAlert"></div>
+
+            <form id="essayForm">
+                <div class="form-group">
+                    <label for="prompt">
+                        <i class="fas fa-lightbulb"></i> Topik atau Instruksi Esai
+                    </label>
+                    <textarea 
+                        id="prompt" 
+                        class="form-control" 
+                        placeholder="Contoh: Tulis esai tentang dampak teknologi digital terhadap pendidikan modern..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="style">
+                            <i class="fas fa-palette"></i> Gaya Tulisan
+                        </label>
+                        <select id="style" class="form-control">
+                            <option value="Akademik">Akademik</option>
+                            <option value="Santai">Santai</option>
+                            <option value="Persuasif">Persuasif</option>
+                            <option value="Naratif">Naratif</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="length">
+                            <i class="fas fa-ruler-horizontal"></i> Panjang Esai
+                        </label>
+                        <select id="length" class="form-control">
+                            <option value="Pendek (~150 kata)">Pendek (~150 kata)</option>
+                            <option value="Menengah (~300 kata)" selected>Menengah (~300 kata)</option>
+                            <option value="Panjang (~500+ kata)">Panjang (~500+ kata)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="generateBtn">
+                    <i class="fas fa-magic"></i> Generate Esai
+                </button>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Sedang membuat esai yang menakjubkan untuk Anda...</p>
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <h3><i class="fas fa-file-alt"></i> Hasil Esai Anda</h3>
+                <div class="essay-content" id="essayContent"></div>
+                <button class="btn btn-secondary" id="downloadBtn">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Developer</h3>
+                    <p><strong>Naufal Faiz Nugraha</strong></p>
+                    <p><i class="fas fa-envelope"></i> naufalfaiznugraha2005@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Sidoarjo, Jawa Timur, Indonesia</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Tentang Aplikasi</h3>
+                    <p>Essay Generator AI menggunakan teknologi LangChain dan Ollama LLM untuk menghasilkan esai berkualitas tinggi dalam bahasa Indonesia.</p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/naufal-faiz-nugraha" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:naufalfaiznugraha2005@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-color: rgba(255,255,255,0.3); margin: 2rem 0;">
+            <p>&copy; 2024 Naufal Faiz Nugraha. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal" style="display: none;">
+        <!-- Modal content removed since we now have dedicated sections -->
+    </div>
+
+    <!-- Features Modal -->
+    <div class="modal" id="featuresModal" style="display: none;">
+        <!-- Modal content removed since we now have dedicated sections -->
+    </div>
+
+    <script>
+        let currentEssay = '';
+        let currentTopic = '';
+
+        // Form submission
+        document.getElementById('essayForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const prompt = document.getElementById('prompt').value.trim();
+            const style = document.getElementById('style').value;
+            const length = document.getElementById('length').value;
+            
+            if (!prompt) {
+                showAlert('Silakan masukkan topik atau instruksi esai!', 'error');
+                return;
+            }
+
+            // Show loading
+            showLoading(true);
+            hideAlert();
+            document.getElementById('resultSection').style.display = 'none';
+            
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        style: style,
+                        length: length
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentEssay = data.essay;
+                    currentTopic = data.topic;
+                    
+                    document.getElementById('essayContent').innerHTML = formatEssay(data.essay);
+                    document.getElementById('resultSection').style.display = 'block';
+                    
+                    // Scroll to results
+                    document.getElementById('resultSection').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                    
+                    showAlert('Esai berhasil dibuat!', 'success');
+                } else {
+                    showAlert(data.error || 'Terjadi kesalahan saat membuat esai', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Terjadi kesalahan koneksi. Pastikan server Flask berjalan.', 'error');
+            }
+            
+            showLoading(false);
+        });
+
+        // Download PDF
+        document.getElementById('downloadBtn').addEventListener('click', async function() {
+            if (!currentEssay) return;
+            
+            try {
+                const response = await fetch('/download-pdf', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        essay: currentEssay,
+                        topic: currentTopic
+                    })
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `essay_${currentTopic.slice(0, 30)}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    showAlert('PDF berhasil diunduh!', 'success');
+                } else {
+                    showAlert('Gagal mengunduh PDF', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Terjadi kesalahan saat mengunduh PDF', 'error');
+            }
+        });
+
+        // Helper functions
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+            document.getElementById('generateBtn').disabled = show;
+            document.getElementById('generateBtn').innerHTML = show ? 
+                '<i class="fas fa-spinner fa-spin"></i> Generating...' : 
+                '<i class="fas fa-magic"></i> Generate Esai';
+        }
+
+        function formatEssay(essay) {
+            return essay.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+        }
+
+        function showAlert(message, type) {
+            const alertEl = document.getElementById(type === 'error' ? 'errorAlert' : 'successAlert');
+            alertEl.textContent = message;
+            alertEl.style.display = 'block';
+            
+            // Hide other alert
+            const otherAlert = document.getElementById(type === 'error' ? 'successAlert' : 'errorAlert');
+            otherAlert.style.display = 'none';
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => hideAlert(), 5000);
+        }
+
+        function hideAlert() {
+            document.getElementById('errorAlert').style.display = 'none';
+            document.getElementById('successAlert').style.display = 'none';
+        }
+
+        function showAbout() {
+            // Scroll to about section instead of showing modal
+            document.getElementById('about').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function showFeatures() {
+            // Scroll to features section instead of showing modal
+            document.getElementById('features').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside (no longer needed but keeping for future use)
+        window.addEventListener('click', function(event) {
+            // Modal functionality removed since we now use sections
+        });
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+flask
+langchain_ollama
+langchain_core
+fpdf
