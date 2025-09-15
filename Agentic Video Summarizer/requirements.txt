@@ -1,0 +1,7 @@
+streamlit
+phi
+google-generativeai
+python-dotenv
+duckduckgo-search
+pathlib
+tempfile
